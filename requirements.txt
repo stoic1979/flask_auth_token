@@ -1,0 +1,17 @@
+cffi==1.10.0
+click==6.7
+cryptography==1.7.2
+enum34==1.1.6
+Flask==0.12.2
+idna==2.5
+ipaddress==1.0.18
+itsdangerous==0.24
+Jinja2==2.9.6
+jwt==0.5.2
+MarkupSafe==1.0
+pyasn1==0.2.3
+pycparser==2.18
+PyJWT==1.5.2
+six==1.10.0
+typing==3.5.3.0
+Werkzeug==0.12.2
