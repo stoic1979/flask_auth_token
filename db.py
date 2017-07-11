@@ -38,15 +38,37 @@ class Mdb:
             print "login() :: Got exception: %s", exp
             print(traceback.format_exc())
 
+    def user_exists(self, email, password):
+        """
+        function checks if a user with given email and password
+        exists in database
+        :param email: email of the user
+        :param password: password of the user
+        :return: True, if user exists,
+                 False, otherwise
+        """
+        return self.db.user.find({'email': email, 'password': password}).count() > 0
+
 
 if __name__ == "__main__":
     mdb = Mdb()
 
-    # quick internal tests
-    mdb.add_user('johny', 'johny@gmail.com', '123')
+    ########################
+    #                      #
+    # Quick internal tests #
+    #                      #
+    ########################
+
     # lets write some users
+    mdb.add_user('johny', 'johny@gmail.com', '123')
     print "user created"
 
     # lets show all users
     for user in mdb.db.user.find():
         print "User: ", user
+
+    if mdb.user_exists('johny@gmail.com', '1234'):
+        print "User exists"
+    else:
+        print "User does not exists"
+
