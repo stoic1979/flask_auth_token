@@ -3,9 +3,13 @@ import jwt
 import datetime
 from functools import wraps
 
+from db import Mdb
+
 app = Flask(__name__)
 
 app.config['secretkey'] = 'some-strong+secret#key'
+
+mdb = Mdb()
 
 def token_required(f):
     @wraps(f)
@@ -36,8 +40,12 @@ def protected():
     return 'protected'
 
 
-@app.route('/login')
-def login():
+
+# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+# NOT USING THIS AT THE MOMENT
+# XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+@app.route('/login_old')
+def login_old():
     auth = request.authorization
 
     if auth and auth.password == 'password':
@@ -46,6 +54,40 @@ def login():
         return jsonify({'token' : token.decode('UTF-8')})
 
     return make_response('Could not verify!', 401, {'WWW-Authenticate': 'Basic realm="Login Required"'})
+
+
+@app.route('/login', methods=['POST'])
+def login():
+
+    ret = {'err': 0}
+    try:
+
+        email = request.form['email']
+        password = request.form['password']
+
+        if mdb.user_exists(email, password):
+
+            # Login Successful!
+
+            expiry = datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
+            token = jwt.encode({'user': email, 'exp': expiry}, app.config['secretkey'], algorithm='HS256')
+
+            ret['msg'] = 'Login successful'
+            ret['err'] = 0
+            ret['token'] = token.decode('UTF-8')
+
+        else:
+
+            # Login Failed!
+
+            ret['msg'] = 'Login Failed'
+            ret['err'] = 1
+
+    except Exception as exp:
+        ret['msg'] = '%s' % exp
+        ret['err'] = 1
+
+    return jsonify(ret)
 
 
 if __name__ == '__main__':
