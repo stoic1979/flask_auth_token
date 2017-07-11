@@ -42,3 +42,11 @@ class Mdb:
 if __name__ == "__main__":
     mdb = Mdb()
 
+    # quick internal tests
+    mdb.add_user('johny', 'johny@gmail.com', '123')
+    # lets write some users
+    print "user created"
+
+    # lets show all users
+    for user in mdb.db.user.find():
+        print "User: ", user
