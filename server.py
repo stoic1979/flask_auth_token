@@ -42,11 +42,6 @@ def protected(data):
     return 'protected'
 
 
-@app.route('/get')
-@token_required
-def get():
-    return "hii we get the token authentication"
-
 
 
 # XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX

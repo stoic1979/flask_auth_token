@@ -60,14 +60,22 @@ if __name__ == "__main__":
     ########################
 
     # lets write some users
+<<<<<<< HEAD
     # mdb.add_user('johny', 'johny@gmail.com', '123')
+=======
+    mdb.add_user('johny', 'johny@gmail.com', '123')
+>>>>>>> 96b9b279acfd4998703433beaf950a6892f8af16
     print "user created"
 
     # lets show all users
     for user in mdb.db.user.find():
         print "User: ", user
 
+<<<<<<< HEAD
     if mdb.user_exists('johny@gmail.com', '123'):
+=======
+    if mdb.user_exists('johny@gmail.com', '1234'):
+>>>>>>> 96b9b279acfd4998703433beaf950a6892f8af16
         print "User exists"
     else:
         print "User does not exists"

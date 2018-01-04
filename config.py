@@ -13,4 +13,8 @@ DB_NAME = 'testappdb'
 
 DB_USER = 'admin'
 
+<<<<<<< HEAD
 DB_PASS = '123'
+=======
+DB_PASS = 'admin123'
+>>>>>>> 96b9b279acfd4998703433beaf950a6892f8af16
